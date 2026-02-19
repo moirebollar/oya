@@ -1,0 +1,48 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // ─── Users ───────────────────────────────────────────────────────────────
+    // Each user can only read and write their own profile document.
+    match /users/{uid} {
+      allow read, write: if request.auth != null && request.auth.uid == uid;
+    }
+
+    // ─── Product cache ────────────────────────────────────────────────────────
+    // Any authenticated user can read or write product cache documents.
+    // Phase 2: tighten writes to Cloud Function service account only.
+    match /products/{ean} {
+      allow read: if request.auth != null;
+      allow write: if request.auth != null;
+    }
+
+    // ─── Store cache ──────────────────────────────────────────────────────────
+    // Authenticated users can read store cache documents.
+    // Writes are performed by the app on behalf of the user (cache-miss write).
+    // Phase 2: tighten writes to Cloud Function service account only.
+    match /store_cache/{geohash} {
+      allow read: if request.auth != null;
+      allow write: if request.auth != null;
+    }
+
+    // ─── Seasonal produce ─────────────────────────────────────────────────────
+    // Read-only for authenticated users. Written once by the seed script.
+    match /seasonal_produce/{country}/months/{month} {
+      allow read: if request.auth != null;
+      allow write: if false; // seeded via Firebase Admin SDK / console only
+    }
+
+    // ─── Supermarket offers (Phase 2) ─────────────────────────────────────────
+    // Read-only for authenticated users. Written by scheduled Cloud Functions.
+    match /supermarket_offers/{country}/{chain}/offers/{ean} {
+      allow read: if request.auth != null;
+      allow write: if false; // Cloud Function service account only
+    }
+
+    // ─── Deny everything else ─────────────────────────────────────────────────
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

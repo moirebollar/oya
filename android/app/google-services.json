@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "14559614990",
+    "project_id": "communityhub-d5b38",
+    "storage_bucket": "communityhub-d5b38.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:14559614990:android:58a0e8d03e31d6b205045f",
+        "android_client_info": {
+          "package_name": "com.communityshub.app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAfSJgiGl9RfiCGU1ryzx3BMPDb0cRKxSw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:14559614990:android:ac36e52ae3a845b805045f",
+        "android_client_info": {
+          "package_name": "com.oyaapp.oya"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAfSJgiGl9RfiCGU1ryzx3BMPDb0cRKxSw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
